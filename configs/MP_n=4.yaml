@@ -1,0 +1,53 @@
+output_dir: trained_models/N=4_MP/
+name: N=4_hlb
+notes: >
+    AE w/ HLB regressor
+
+trainer: AE_trainer_MP
+
+data:
+    name: ae_dataset
+    collate: False
+    train_val_split: 0.1
+    seed: 52
+    batch_size: 64
+    max_length: 50
+    data_path: '../data/Protein/prot2RHP_n=4_step15.csv' # update this before running
+    win_length: 5
+    monomer_codes: '1234'
+    compute_HLB: True
+    hlbdict:
+        '1': 8.45  #MMA hydrophobic
+        '2': 11.42 #OEGMA500 hydrophilic
+        '3': 5.125 #EHMA very hydrophobic
+        '4': 18.5  #SPMA
+
+model:
+    name: AE_MP
+    input_dim: [5, 51]
+    latent_dim: 16
+    win_length: 5
+    enc_hidden_sizes: [512, 256, 64]
+    dec_hidden_sizes: [64, 256, 512]
+    compute_HLB: True
+    MLP_HLB_size: [32, 32]
+
+loss:
+    name: HLBLoss
+    loss_weight_ce: 1
+    loss_weight_hlb: 5
+    reduction: 'mean'
+    ce_ignore_index: 4 # pad_token used only when seqs dont have same length
+    hlb_ignore_index: -1
+
+optimizer:
+    name: Adam
+    lr: 0.001
+    
+# lr_scheduler:
+#     name: ReduceLROnPlateau
+#     verbose: True
+
+train:
+    grad_clip: null
+    n_epochs: 18
