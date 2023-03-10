@@ -1,6 +1,6 @@
 # AE for RHP Design
 
-This code repository is distributed as part of the Nature supplementary software release for *Population-based Heteropolymer Design to Mimic Protein Mixtures in Biological Fluids*. It trains on protein sequences (in their monomer-equivalent form) and provides a meaningful latent space for RHP and protein similarity analysis.
+This code repository is distributed as part of the Nature supplementary software release for [Population-based heteropolymer design to mimic protein mixtures](https://www.nature.com/articles/s41586-022-05675-0). It trains on protein sequences (in their monomer-equivalent form) and provides a meaningful latent space for RHP and protein similarity analysis.
 
 
 ## Data
